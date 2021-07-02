@@ -26,10 +26,10 @@ public class Cart
 	Scanner input = new Scanner(System.in);
 	
 	private JFrame frame;
-	private JTextField item_name;
-	private JLabel item_list;
+	private JTextField itemName;
+	private JLabel itemList;
 	private JLabel alert;
-	private List<String> shopping_cart = new ArrayList<>();
+	private List<String> shoppingCart = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -65,42 +65,42 @@ public class Cart
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 		
-		create_labels();
+		createLabels();
 		
-		create_textfields();
+		createTextfields();
 		
-		create_buttons();
+		createButtons();
 		
-		add_image();
+		addImage();
 	}
 	
-	private void create_labels()
+	private void createLabels()
 	{ 
 		
 		//Label used to set a title prompting the user to enter an item.  
-		JLabel enter_item_title = new JLabel("Enter an Item");
-		enter_item_title.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		enter_item_title.setBounds(17, 36, 130, 14);
-		frame.getContentPane().add(enter_item_title);
+		JLabel enterItemTitle = new JLabel("Enter an Item");
+		enterItemTitle.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		enterItemTitle.setBounds(17, 36, 130, 14);
+		frame.getContentPane().add(enterItemTitle);
 		
 		//Label that will be used to set the title of the shopping list where all items will appear. 
-		JLabel shopping_list = new JLabel("Shopping List");
-		shopping_list.setHorizontalAlignment(SwingConstants.CENTER);
-		shopping_list.setFont(new Font("Times New Roman", Font.BOLD, 17));
-		shopping_list.setBounds(317, 3, 116, 30);
-		frame.getContentPane().add(shopping_list);
+		JLabel shoppingList = new JLabel("Shopping List");
+		shoppingList.setHorizontalAlignment(SwingConstants.CENTER);
+		shoppingList.setFont(new Font("Times New Roman", Font.BOLD, 17));
+		shoppingList.setBounds(317, 3, 116, 30);
+		frame.getContentPane().add(shoppingList);
 		
 		//Label that is used to print out the shopping list to the screen.  
-		item_list = new JLabel("");
-		item_list.setOpaque(true);
-		item_list.setBackground(Color.WHITE);
-		item_list.setVerticalAlignment(SwingConstants.TOP);
-		item_list.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		item_list.setBounds(259, 29, 228, 401);
-		JScrollPane item_list_scrollbar = new JScrollPane(item_list);
-		item_list_scrollbar.setBounds(259, 29, 228, 401);
-		frame.getContentPane().add(item_list_scrollbar);
-		item_list.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.black),
+		itemList = new JLabel("");
+		itemList.setOpaque(true);
+		itemList.setBackground(Color.WHITE);
+		itemList.setVerticalAlignment(SwingConstants.TOP);
+		itemList.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		itemList.setBounds(259, 29, 228, 401);
+		JScrollPane itemListScrollbar = new JScrollPane(itemList);
+		itemListScrollbar.setBounds(259, 29, 228, 401);
+		frame.getContentPane().add(itemListScrollbar);
+		itemList.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.black),
 		BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 		
 		/*
@@ -115,26 +115,26 @@ public class Cart
 		frame.getContentPane().add(alert);
 	}
 	
-	private void create_textfields()
+	private void createTextfields()
 	{
 		//Text field used to enter an item.  
-		item_name = new JTextField();
-		item_name.setBounds(9, 75, 216, 20);
-		frame.getContentPane().add(item_name);
-		item_name.setColumns(10);
+		itemName = new JTextField();
+		itemName.setBounds(9, 75, 216, 20);
+		frame.getContentPane().add(itemName);
+		itemName.setColumns(10);
 	}
 	
-	private void create_buttons()
+	private void createButtons()
 	{
 		//Button that will be used to add an item into the list. 
-		JButton add_item = new JButton("Add Item");
-		add_item.setBounds(17, 106, 99, 23);
-		frame.getContentPane().add(add_item);
+		JButton addItem = new JButton("Add Item");
+		addItem.setBounds(17, 106, 99, 23);
+		frame.getContentPane().add(addItem);
 		
 		//Button that will be used to delete an item from the list
-		JButton delete_item = new JButton("Delete Item");
-		delete_item.setBounds(126, 106, 99, 23);
-		frame.getContentPane().add(delete_item);
+		JButton deleteItem = new JButton("Delete Item");
+		deleteItem.setBounds(126, 106, 99, 23);
+		frame.getContentPane().add(deleteItem);
 		
 		//Button used to quit out of the application and close the window.  
 		JButton quit = new JButton("Quit");
@@ -146,29 +146,29 @@ public class Cart
 		 * If the text field is empty and you click the "add item" button, it will alert the user to enter an item name. 
 		 * If you enter an item that is already in the list, it will alert the user that the item is already in the list. 
 		 */
-		add_item.addActionListener(new ActionListener()
+		addItem.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				if(item_name.getText().isEmpty())
+				if(itemName.getText().isEmpty())
 				{
 					alert.setText("Please enter an item to add!");
-					item_name.requestFocus();
+					itemName.requestFocus();
 				}
-				else if(!shopping_cart.contains(item_name.getText().trim().replaceAll("( )+", " ").toLowerCase()))
+				else if(!shoppingCart.contains(itemName.getText().trim().replaceAll("( )+", " ").toLowerCase()))
 				{	
-					shopping_cart.add(item_name.getText().trim().replaceAll("( )+", " ").toLowerCase());
+					shoppingCart.add(itemName.getText().trim().replaceAll("( )+", " ").toLowerCase());
 					
-					build_grocery_list();
+					buildGroceryList();
 					
-					reset_text();
+					resetText();
 				}
 				else
 				{
 					alert.setText("You already added that item!");
-					item_name.setText("");
-					item_name.requestFocus();
+					itemName.setText("");
+					itemName.requestFocus();
 				}
 				
 			}
@@ -180,32 +180,32 @@ public class Cart
 		 * If the text field is empty and you click the "delete item" button, it will alert the user to enter an item name. 
 		 * If you enter an item that is not in the list, it will alert the user that the item is not in the list. 
 		 */
-		delete_item.addActionListener(new ActionListener()
+		deleteItem.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				
-				if(item_name.getText().isEmpty())
+				if(itemName.getText().isEmpty())
 				{
 					alert.setText("Please enter an item to delete!");
-					item_name.requestFocus();
+					itemName.requestFocus();
 				}
 				else
 				{
-					if(!shopping_cart.contains(item_name.getText().trim().replaceAll("( )+", " ").toLowerCase()))
+					if(!shoppingCart.contains(itemName.getText().trim().replaceAll("( )+", " ").toLowerCase()))
 					{
 						alert.setText("That item is not in your list.");
-						item_name.setText("");
-						item_name.requestFocus();
+						itemName.setText("");
+						itemName.requestFocus();
 					}
 					else
 					{
-						shopping_cart.remove(item_name.getText().trim().replaceAll("( )+", " ").toLowerCase());
+						shoppingCart.remove(itemName.getText().trim().replaceAll("( )+", " ").toLowerCase());
 						
-						build_grocery_list();
+						buildGroceryList();
 					
-						reset_text();
+						resetText();
 					}
 				}
 			}
@@ -228,27 +228,27 @@ public class Cart
 	}
 	
 	//Method used to reset text fields after an item is added or deleted from the list.
-	private void reset_text()
+	private void resetText()
 	{
-		item_name.setText("");
+		itemName.setText("");
 		alert.setText("");
-		item_name.requestFocus();
+		itemName.requestFocus();
 	}
 	
 	//Method used to build the StringBuilder that will be printed onto the screen after an item is added or deleted from the list.
-	private void build_grocery_list()
+	private void buildGroceryList()
 	{
-		StringBuilder print_list = new StringBuilder();
+		StringBuilder printList = new StringBuilder();
 		
-		for(int i = 0; i < shopping_cart.size(); i++)
+		for(int i = 0; i < shoppingCart.size(); i++)
 		{
-			print_list.append("<HTML>" + (i + 1) + ". "+ shopping_cart.get(i) + "<BR>");
+			printList.append("<HTML>" + (i + 1) + ". "+ shoppingCart.get(i) + "<BR>");
 		}
 		
-		item_list.setText(print_list.toString());
+		itemList.setText(printList.toString());
 	}
 	
-	private void add_image() throws IOException
+	private void addImage() throws IOException
 	{
 		/*
 		 * Grabs the image from a specified file and stores it into a BufferedImage variable. 
@@ -259,9 +259,9 @@ public class Cart
 	    BufferedImage image = ImageIO.read(file);
 		
 		//Label that is used to set an image in the frame.  
-	    JLabel grocery_image = new JLabel(new ImageIcon(image));
-		grocery_image.setBackground(Color.WHITE);
-		grocery_image.setBounds(10, 276, 239, 165);
-		frame.getContentPane().add(grocery_image);
+	    JLabel groceryImage = new JLabel(new ImageIcon(image));
+		groceryImage.setBackground(Color.WHITE);
+		groceryImage.setBounds(10, 276, 239, 165);
+		frame.getContentPane().add(groceryImage);
 	}
 }
